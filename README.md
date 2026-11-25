@@ -1,6 +1,20 @@
 # CaMaCon
 
-This package contains the CaMaCon implementation and the pretrained weights for two invertible autoencoders and five point-cloud classifiers on each dataset.
+This repository provides the CaMaCon implementation. Running CaMaCon requires the pretrained classifier and autoencoder weights described below.
+
+## Pretrained weights
+
+If your local copy already includes the weights at the paths below, continue to the installation steps.
+
+| Weights | Location relative to this README |
+| --- | --- |
+| Classifier weights | `ckpt/<dataset_lowercase>_<model>.pth` |
+| ModelNet40 autoencoder | `src/attackers/camacon/fold_inv_model/best_model.pth` |
+| ShapeNetPart autoencoder | `src/attackers/camacon/fold_inv_model/best_model_shapenet.pth` |
+
+If your copy is missing the weights, check the repository's **Releases** page. When the split release assets are available, download all five files, `CaMaCon_part_01.zip` through `CaMaCon_part_05.zip`, from **Assets**. Extract each ZIP into the same parent directory and merge the resulting `CaMaCon_release` folders. Then run the instructions below from that merged folder. GitHub's automatically generated **Source code (zip)** only contains the files committed to the repository.
+
+If the release assets are not yet published, the repository can be used to inspect the implementation. Running the pretrained evaluation requires those weights.
 
 ## Install dependencies
 
@@ -20,7 +34,7 @@ python -c "import torch; from pytorch3d.ops import knn_points; print(torch.__ver
 
 Both destinations are relative to this README. Extract the archives and put their HDF5 shards and file lists directly in the corresponding destination. The ShapeNetPart archive uses an `hdf5_data` folder. Rename it to `shapenetpart_hdf5_2048` when moving it under `data/`.
 
-In each dataset directory, make sure `train_files.txt` and `test_files.txt` each list one shard filename per line, in the original order. Remove any leading directory components from the list entries. For example, an entry should read `ply_data_test0.h5`. If a file list is missing, create it from the matching numbered shards in ascending order. Leave the pretrained weights in their packaged locations.
+In each dataset directory, make sure `train_files.txt` and `test_files.txt` each list one shard filename per line, in the original order. Remove any leading directory components from the list entries. For example, an entry should read `ply_data_test0.h5`. If a file list is missing, create it from the matching numbered shards in ascending order.
 
 ## Run CaMaCon
 
